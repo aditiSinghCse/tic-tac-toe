@@ -2,8 +2,10 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #e7d6ba;
 }
 .board {
     background-color: #a1562f;
@@ -35,4 +37,16 @@
     align-items: center;
     margin: 5px;
     cursor: no-drop;
+}
+.winning-text {
+    font-size: 26px;
+    color: #2c3fdf;
+    font-weight: bold;
+    margin-top: 20%;
+}
+.draw-text {
+    font-size: 26px;
+    color: #bb5d1a;
+    font-weight: bold;
+    margin-top: 20%;
 }
