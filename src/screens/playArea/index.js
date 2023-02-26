@@ -31,6 +31,13 @@ const PlayArea = () => {
         return foundWin;
     };
 
+    const reset = () => {
+        setFirstPlayer(true);
+        setWinnerFound(false);
+        setMatchDraw(false);
+        setMoves({});
+    }
+
     useEffect(() => {
         if (Object.keys(moves).length) {
             if (checkWinningCondition(moves)) {
@@ -49,11 +56,16 @@ const PlayArea = () => {
 
     return (
         <div className='playarea'>
-            {winnerFound && (
-                <div className="winning-text">{`Winner is ${!firstPlayer ? 'Player 1 (X)' : 'Player 2 (O)'}!`}</div>
-            )}
-            {matchDraw && (
-                <div className="draw-text">{`Match was draw!`}</div>
+            {(winnerFound || matchDraw) && (
+                <>
+                    {winnerFound && (
+                        <div className="winning-text">{`Winner is ${!firstPlayer ? 'Player 1 (X)' : 'Player 2 (O)'}!`}</div>
+                    )}
+                    {matchDraw && (
+                        <div className="draw-text">{`Match was draw!`}</div>
+                    )}
+                    <div className='reset' onClick={reset}>Play Another Game!</div>
+                </>
             )}
             <div className='board'>
                 {new Array(3).fill('').map((row, outerIdx) => {
@@ -83,6 +95,9 @@ const PlayArea = () => {
                     )
                 })}
             </div>
+            {!(winnerFound || matchDraw) && (
+                <div className='instructions'>{`Next Player: ${firstPlayer ? 'Player 1 (X)' : 'Player 2 (O)'}`}</div>
+            )}
         </div>
     );
 };
