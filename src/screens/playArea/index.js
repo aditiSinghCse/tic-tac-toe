@@ -1,37 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style.css';
 
 const PlayArea = () => {
+    const [firstPlayer, setFirstPlayer] = useState(true);
+    const [winnerFound, setWinnerFound] = useState(false);
+    const [moves, setMoves] = useState({});
     return (
         <div className='playarea'>
             <div className='board'>
-                <div className="board-row">
-                    {new Array(3).fill('').map((item, idx) => (
-                        <div
-                            key={`0-${idx}`}
-                            className='box'
-                        >{' '}
+                {new Array(3).fill('').map((row, outerIdx) => {
+                    return (
+                        <div className="board-row" key={outerIdx}>
+                        {new Array(3).fill('').map((col, innerIdx) => {
+                            const boxId = `${outerIdx}-${innerIdx}`;
+                            return (
+                                <div
+                                    onClick={() => {
+                                        if (!moves[boxId] && !winnerFound) {
+                                            setMoves({
+                                                ...moves,
+                                                [boxId]: firstPlayer ? 'X' : 'O',
+                                            });
+                                            setFirstPlayer(!firstPlayer)
+                                        }
+                                    }}
+                                    key={boxId}
+                                    className={(moves[boxId] || winnerFound) ? 'box-played' : 'box'}
+                                >{moves[boxId] || ' '}
+                                </div>
+                            )
+                        })}
                         </div>
-                    ))}
-                </div>
-                <div className="board-row">
-                    {new Array(3).fill('').map((item, idx) => (
-                        <div
-                            key={`1-${idx}`}
-                            className='box'
-                        >{' '}
-                        </div>
-                    ))}
-                </div>
-                <div className="board-row">
-                    {new Array(3).fill('').map((item, idx) => (
-                        <div
-                            key={`2-${idx}`}
-                            className='box'
-                        >{' '}
-                        </div>
-                    ))}
-                </div>
+                    )
+                })}
             </div>
         </div>
     );

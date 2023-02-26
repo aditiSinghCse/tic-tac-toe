@@ -25,3 +25,14 @@
     margin: 5px;
     cursor: pointer;
 }
+.box-played {
+    background-color: #ddd8d8;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: no-drop;
+}
